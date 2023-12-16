@@ -15,8 +15,8 @@ templates = Jinja2Templates(directory='templates', context_processors=[app_conte
 
 
 async def json(request) -> JSONResponse:
-    payload = await request.json() #curl -X POST -d "{\"role\": \"user\", \"content\": \"hello!\"}" http://localhost:8000/
-    payload = app.prompt + [payload]
+    payload = await request.json() #curl -X POST -d "[{\"role\": \"user\", \"content\": \"hello!\"}]" http://localhost:8000/
+    payload = app.prompt + payload
     response_q = asyncio.Queue()
     await app.model_queue.put((payload, response_q))
     output = await response_q.get()
