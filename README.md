@@ -1,11 +1,16 @@
-# LLM experiments
+# Offline LLM experiments
 
 
+### code.py
+
+Ask a model for help with code and get a streamed, syntax highligted reply.
+
+`uvicorn code:app`
 
 
 
 ### server.py
 
-Explanation and documentation coming soon!
+A simple web ui to chat with open source models.
 
 `uvicorn server:app`
