@@ -3,7 +3,7 @@
 
 ### code.py
 
-Ask a model for help with code and get a streamed, syntax highligted reply.
+Ask a model for help with code and get a streamed, syntax highlighted reply.
 
 `uvicorn code:app`
 
