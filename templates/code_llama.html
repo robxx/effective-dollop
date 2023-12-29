@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>CodeLlama 🛠</title>
+        <style>{{ highlight_styles }}</style>
+        <script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+        <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
+        <script type="text/javascript" charset="utf-8">
+
+            const socket = io("/chat");
+            $(document).ready(function() {          
+                socket.on("connect", () => {
+                    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+                });                
+                socket.on("disconnect", () => {
+                    console.log(socket.id); // undefined
+                });                
+                socket.on('message', (data) => {
+                    $('#chat').html(data);
+                    $('#chat').scrollTop()
+                });                
+                $('#text').keypress(function(e) {                                        
+                    var code = e.keyCode || e.which;
+                    if (code == 13) {
+                        text = $('#text').val();
+                        $('#text').val('');
+                        socket.emit('question', text);
+                    }
+                });
+            });        
+            function leave_room() {
+                socket.disconnect();
+            } 
+        </script>
+    </head>
+    <body>
+        <h1>CodeLlama 🛠</h1>
+        <div id="chat" style="width: 640px;height: 480px;overflow: auto;border: 1px solid black;padding: 4px;"></div><br><br>
+        <input id="text" size="80" placeholder="enter your instruction here"><br><br>
+        <!--<a href="javascript:leave_room();">disconnect</a>-->
+    </body>
+</html>
